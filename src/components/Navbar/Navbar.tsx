@@ -1,34 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface Props {
   userIn: boolean;
+  userIdentify: string;
 }
 
 
-const Navbar: React.FC<Props> = ({ userIn }) => {
+const Navbar: React.FC<Props> = ({ userIn, userIdentify }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const adminNav = ['Home', 'New-Tour', 'Users', 'Orders', 'Personal'];
+  const userNav = ['Home', 'Personal'];
 
+  const singAndLog = ['/', 'log-in'];
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  const singAndLog = ['/', 'log-in'];
+  useEffect(() => {
+    console.log('Navbar', userIdentify);
+  }, [userIdentify]);
 
-  let navShow = null;
+  let navShow;
 
   if (!userIn) {
     navShow = singAndLog.map((item) => (
       <li className='nav-item' key={item}>
         <NavLink
           to={item}
+          className='nav-link'
+        >
+          {item === '/' ? 'Sign Up' : 'Log In'}
+        </NavLink>
+      </li>
+    ));
+  } else if (userIdentify === 'admin') {
+    navShow = adminNav.map((nav) => (
+      <li className='nav-item' key={nav}>
+        <NavLink
+          to={'/' + nav.toLocaleLowerCase()}
           className={({ isActive, isPending }) =>
             `nav-link ${
               isPending ? 'pending' : isActive ? 'active text-primary' : ''
             }`
           }
         >
-          {item === '/' ? 'Sing Up' : 'Log In'}
+          {nav}
+        </NavLink>
+      </li>
+    ));
+  } else if (userIdentify === 'user') {
+    navShow = userNav.map((nav) => (
+      <li className='nav-item' key={nav}>
+        <NavLink
+          to={'/' + nav.toLocaleLowerCase()}
+          className={({ isActive, isPending }) =>
+            `nav-link ${
+              isPending ? 'pending' : isActive ? 'active text-primary' : ''
+            }`
+          }
+        >
+          {nav}
         </NavLink>
       </li>
     ));
@@ -37,18 +69,13 @@ const Navbar: React.FC<Props> = ({ userIn }) => {
       <li className='nav-item'>
         <NavLink
           to={'/home'}
-          className={({ isActive, isPending }) =>
-            `nav-link ${
-              isPending ? 'pending' : isActive ? 'active text-primary' : ''
-            }`
-          }
+          className='nav-link'
         >
-         Home
+          Home
         </NavLink>
       </li>
     );
   }
-
 
   return (
     <nav className='navbar navbar-expand-lg'>
