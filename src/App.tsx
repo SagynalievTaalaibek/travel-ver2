@@ -1,17 +1,20 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Register from './containers/Register/Register';
 import LogIn from './containers/LogIn/LogIn';
 import Home from './containers/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import { useEffect, useState } from 'react';
-import { UserData } from './types';
 import Users from './containers/Users/Users';
 import User from './containers/User/User';
+import NewTourForm from './containers/NewTourForm/NewTourForm';
+import { regionsEng } from './constant';
+import { UserData } from './types';
 
 const App = () => {
   const navigate = useNavigate();
   const [userIn, setUserIn] = useState(false);
   const [userData, setUserData] = useState<UserData>({
+    name: '',
     email: '',
     password: '',
     role: '',
@@ -26,6 +29,7 @@ const App = () => {
   const logOut = () => {
     setUserIn(false);
     setUserData({
+      name: '',
       email: '',
       password: '',
       role: '',
@@ -57,7 +61,8 @@ const App = () => {
     routes = (
       <>
         <Route path={'/users'} element={<Users />} />
-        <Route path={'/new-tour'} element={<h1>New Tour</h1>} />
+        <Route path={'/tours'} element={<NewTourForm />} />
+        <Route path={'/tours/:id/edit'} element={<NewTourForm />} />
         <Route path={'/orders'} element={<h1>Orders</h1>} />
         <Route path={'/users/:id'} element={<User />} />
       </>
@@ -65,13 +70,13 @@ const App = () => {
   }
 
   return (
-    <>
-      <header className='bg-body-secondary mb-2'>
+    <div className="d-flex flex-column vh-100">
+      <header className='bg-body-secondary'>
         <div className='container'>
-          <Navbar userIn={userIn} userIdentify={userData.role.length > 0 ? userData.role : 'user'} />
+          <Navbar userIn={userIn} logOut={logOut} userIdentify={userData.role.length > 0 ? userData.role : 'user'} />
         </div>
       </header>
-      <main className='container'>
+      <main className='container mt-3'>
         <Routes>
           {!userIn && (
             <>
@@ -84,6 +89,9 @@ const App = () => {
           {userIn && (
             <>
               <Route path={'/home'} element={<Home />} />
+              {regionsEng.map((region) => (
+                <Route path={'/home/' + region} element={<Home />} key={region}/>
+              ))}
               <Route path={'/personal'} element={<h1>Personal</h1>} />
             </>
           )}
@@ -91,14 +99,12 @@ const App = () => {
           <Route path={'*'} element={<h1>Not found</h1>} />
         </Routes>
       </main>
-      <footer className='container mt-5'>
-        {userIn && (
-          <button onClick={logOut} className='mt-5'>
-            Log out
-          </button>
-        )}
+      <footer className='mt-auto bg-body-secondary'>
+        <div className='container mt-auto py-3'>
+          Footer
+        </div>
       </footer>
-    </>
+    </div>
   );
 };
 

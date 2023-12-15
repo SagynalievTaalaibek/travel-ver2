@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Ала-Арча",
+    "img": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/09/a4/8d/63/ala-archa-gorge.jpg?w=1200&h=1200&s=1",
+    "description": "Ущелье Ала-Арча — это одна из самых знаменитых достопримечательностей",
+    "price": "250",
+    "region": "1",
+    "id": "1"
+  },
+  {
+    "name": "Каньон Сказка",
+    "img": "https://st-1.akipress.org/127/.storage/limon2/images/july2016/f87bf38f5ea0f5f7c686d13d5e2be7c9.jpg",
+    "description": "Каньон Сказка — это небольшое ущелье на южном берегу Иссык-Куля, знаменитое своими красными глиняными скалами.",
+    "price": "300",
+    "region": "0",
+    "id": "2"
+  },
+  {
+    "name": "Арсланбоб",
+    "img": "https://www.advantour.com/img/kyrgyzstan/images/arslanbob.jpg",
+    "description": "В Арстанбоб встречаются ореховые деревья высотой до 30 метров, возраст которых может превышать 1000 лет",
+    "price": "100",
+    "region": "2",
+    "id": "3"
+  },
+  {
+    "name": "Гора Сулайман-Тоо",
+    "img": "BChttps://bestofosh.com/wp-content/uploads/2022/04/%D1%81%D1%83%D0%BB%D0%B0%D0%B9%D0%%D0%B0%D0%BD-%D1%82%D0%BE%D0%BE.jpg",
+    "description": "Сулайма́н-То́о священная гора в городе Ош. В июне 2009 года стала первым в стране памятником Всемирного наследия",
+    "price": "500",
+    "region": "3",
+    "id": "4"
+  },
+  {
+    "name": "Таш-Рабат",
+    "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tash_Rabat.JPG/1920px-Tash_Rabat.JPG",
+    "description": "Таш-Рабат — караван-сарай. Сооружение расположено на берегу извилистой речки Таш-Рабат, притока реки Кара-Коюн, на высоте более 3500 м над уровнем моря.",
+    "price": "897.00",
+    "region": "4",
+    "id": "5"
+  },
+  {
+    "name": "Горнолыжная база Каракол",
+    "img": "https://topphotospots.com/upload/styles/1920/public/loc2519/3.jpg?itok=1EmdbQIp",
+    "description": "Современная горнолыжная база расположена, в 7 км от города Каракол",
+    "price": "600",
+    "region": "0",
+    "id": "6"
+  }
+]

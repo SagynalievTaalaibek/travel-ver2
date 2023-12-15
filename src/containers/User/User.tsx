@@ -7,6 +7,7 @@ const User = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [user, setUser] = useState<UserData>({
+    name: '',
     email: '',
     role: '',
     password: '',
@@ -68,6 +69,20 @@ const User = () => {
       <h1>Edit User</h1>
       <form onSubmit={handleFormSubmit}>
         <div className='mb-3'>
+          <label htmlFor='name' className='form-label'>
+            Name
+          </label>
+          <input
+            type='text'
+            name='name'
+            id='name'
+            className='form-control'
+            required
+            value={user.name}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div className='mb-3'>
           <label htmlFor='email' className='form-label'>
             Email
           </label>
@@ -99,7 +114,7 @@ const User = () => {
             <option value='guide'>Guide</option>
           </select>
         </div>
-        <button type='submit' className="btn btn-primary">Save Changes</button>
+        <button type='submit' className='btn btn-primary'>Save Changes</button>
       </form>
     </div>
   );

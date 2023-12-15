@@ -9,6 +9,7 @@ interface Props {
 
 const Register: React.FC<Props> = ({ userRegisterLog }) => {
   const [user, setUser] = useState<UserInterface>({
+    name: '',
     email: '',
     password: '',
     role: 'user',
@@ -44,6 +45,20 @@ const Register: React.FC<Props> = ({ userRegisterLog }) => {
   return (
     <form className='w-50 card p-3 mx-auto mt-5' onSubmit={onSubmit}>
       <h3 className='mx-auto'>Register</h3>
+      <div className='mb-3'>
+        <label htmlFor='name' className='form-label'>
+          Name
+        </label>
+        <input
+          type='text'
+          name='name'
+          id='name'
+          className='form-control'
+          required
+          value={user.name}
+          onChange={onChange}
+        />
+      </div>
       <div className='mb-3'>
         <label htmlFor='email' className='form-label'>
           Email

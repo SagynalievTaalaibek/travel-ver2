@@ -50,7 +50,7 @@ const Users = () => {
           <thead>
           <tr>
             <th scope='col'>#</th>
-            <th scope='col'>Email</th>
+            <th scope='col'>Name</th>
             <th scope='col'>Actions</th>
           </tr>
           </thead>
@@ -58,7 +58,7 @@ const Users = () => {
           {users.map((user, index) => (
             <tr key={user.id}>
               <td>{index + 1}</td>
-              <td>{user.email}</td>
+              <td>{user.name}  <strong>{user.role}</strong></td>
               <td>
                 <button className='btn btn-primary me-md-2 btn-sm' onClick={() => navigate('/users/' + user.id)}>Edit</button>
                 <button className='btn btn-danger btn-sm' onClick={() => deleteUser(user.id)}>Delete</button>

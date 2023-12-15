@@ -4,12 +4,13 @@ import { NavLink } from 'react-router-dom';
 interface Props {
   userIn: boolean;
   userIdentify: string;
+  logOut: React.MouseEventHandler;
 }
 
 
-const Navbar: React.FC<Props> = ({ userIn, userIdentify }) => {
+const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const adminNav = ['Home', 'New-Tour', 'Users', 'Orders', 'Personal'];
+  const adminNav = ['Home', 'Tours', 'Users', 'Orders', 'Personal'];
   const userNav = ['Home', 'Personal'];
 
   const singAndLog = ['/', 'log-in'];
@@ -78,17 +79,37 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify }) => {
   }
 
   return (
-    <nav className='navbar navbar-expand-lg'>
-      <a className='navbar-brand text-warning' href='/home'>
-        Travel
-      </a>
-      <button className='navbar-toggler' type='button' onClick={toggleMenu}>
+    <nav className='navbar'>
+      <a className='navbar-brand text-warning  fw-bolder' href='/home'>Travel</a>
+      <button
+        className='navbar-toggler'
+        type='button'
+        onClick={toggleMenu}
+        aria-expanded={isOpen ? 'true' : 'false'}
+      >
         <span className='navbar-toggler-icon'></span>
       </button>
-      <div className={`collapse navbar-collapse ${isOpen ? 'show' : ''}`}>
-        <ul className='navbar-nav'>
-          {navShow}
-        </ul>
+      <div
+        className={`offcanvas offcanvas-end ${isOpen ? 'show' : ''}`}
+        id='offcanvasNavbar'
+        aria-labelledby='offcanvasNavbarLabel'
+      >
+        <div className='offcanvas-header'>
+          <h5 className='offcanvas-title' id='offcanvasNavbarLabel'>Navbar</h5>
+          <button type='button' className='btn-close' onClick={toggleMenu} aria-label='Close'></button>
+        </div>
+        <div className='offcanvas-body'>
+          <ul className='navbar-nav justify-content-end flex-grow-1 pe-3'>
+            <ul className='navbar-nav'>
+              {navShow}
+            </ul>
+          </ul>
+        </div>
+        <div className='px-3 py-5'>
+          {userIn && (
+            <button className='btn btn-primary' onClick={logOut}>Log out</button>
+          )}
+        </div>
       </div>
     </nav>
   );
