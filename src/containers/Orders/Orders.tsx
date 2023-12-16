@@ -58,7 +58,7 @@ const Orders = () => {
   return (
     <div>
       {orders.map((order, index) => (
-        <div key={order.id} className='card'>
+        <div key={order.id} className='card mb-3'>
           <div className='card-header'>Name: {order.name}</div>
           <div className='card-body'>Date: {order.date}</div>
           <div className='card-footer'>

@@ -42,7 +42,7 @@ const MyBooks: React.FC<Props> = ({ userBooksId }) => {
   return (
     <div>
       {books.map((book) => {
-        if (!book.statusFinish && !book.statusFinish) {
+        if (!book.statusFinish) {
           return (
             <div key={book.id} className='card mb-2'>
               <div className='card-body'>
