@@ -1,12 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useCallback, useEffect, useState } from 'react';
 import axiosApiTravel from '../../axiosApiTravel';
-import { UserData } from '../../types';
+import { UserDataInterface } from '../../types';
 
 const User = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState<UserData>({
+  const [user, setUser] = useState<UserDataInterface>({
     name: '',
     email: '',
     role: '',
@@ -16,7 +16,7 @@ const User = () => {
 
   const fetchUser = useCallback(async (id: string) => {
     try {
-      const responseUser = await axiosApiTravel.get<UserData | null>(`users/${id}.json`);
+      const responseUser = await axiosApiTravel.get<UserDataInterface | null>(`users/${id}.json`);
       const userData = responseUser.data;
 
       if (!userData) {

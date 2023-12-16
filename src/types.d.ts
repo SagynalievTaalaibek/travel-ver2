@@ -6,7 +6,7 @@ export interface UserInterface {
 }
 
 
-export interface UserData {
+export interface UserDataInterface {
   id: string;
   name: string;
   email: string;
@@ -23,12 +23,12 @@ export interface TourCreateForm {
   name: string,
   img: string,
   description: string,
-  region: number;
+  region: string;
   date: string,
-  duration: number,
-  price: number,
-  maxPeople: number,
-  amountPeople: number,
+  duration: string,
+  price: string,
+  maxPeople: string,
+  amountPeople: string,
   guide: string,
 }
 
@@ -39,7 +39,7 @@ export interface TourApi {
 export interface TourCard {
   id: string;
   name: string;
-  price: number;
+  price: string;
   img: string;
 }
 
@@ -47,4 +47,47 @@ export interface Guide {
   id: string;
   name: string;
   email: string;
+}
+
+export interface TourBooks {
+  id: string;
+  guide: string,
+  name: string,
+  img: string,
+  description: string,
+  region: string;
+  date: string,
+  duration: string,
+  price: string,
+  maxPeople: string,
+  amountPeople: string,
+}
+
+export interface BookOrder {
+  userId: string;
+  phone: string;
+  name: string;
+  date: string;
+  tourId: string;
+  guideId: string;
+  amountPeople: string;
+  statusPay: boolean;
+  statusFinish: boolean;
+}
+
+export interface BookOrderApi {
+  [key: string]: BookOrder;
+}
+
+export interface BooksOrders {
+  id: string;
+  userId: string;
+  name: string;
+  date: string;
+  phone: string;
+  tourId: string;
+  guideId: string;
+  amountPeople: string;
+  statusPay: boolean;
+  statusFinish: boolean;
 }

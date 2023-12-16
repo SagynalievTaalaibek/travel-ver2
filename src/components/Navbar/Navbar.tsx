@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface Props {
@@ -11,16 +11,13 @@ interface Props {
 const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
   const [isOpen, setIsOpen] = useState(false);
   const adminNav = ['Home', 'Tours', 'Users', 'Orders', 'Personal'];
-  const userNav = ['Home', 'Personal'];
+  const userNav = ['Home', 'My-books', 'Personal'];
+  const guideNav = ['Home', 'My-books', 'Guide-Orders', 'Personal'];
 
   const singAndLog = ['/', 'log-in'];
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
-  useEffect(() => {
-    console.log('Navbar', userIdentify);
-  }, [userIdentify]);
 
   let navShow;
 
@@ -52,6 +49,21 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
     ));
   } else if (userIdentify === 'user') {
     navShow = userNav.map((nav) => (
+      <li className='nav-item' key={nav}>
+        <NavLink
+          to={'/' + nav.toLocaleLowerCase()}
+          className={({ isActive, isPending }) =>
+            `nav-link ${
+              isPending ? 'pending' : isActive ? 'active text-primary' : ''
+            }`
+          }
+        >
+          {nav}
+        </NavLink>
+      </li>
+    ));
+  } else if (userIdentify === 'guide') {
+    navShow = guideNav.map((nav) => (
       <li className='nav-item' key={nav}>
         <NavLink
           to={'/' + nav.toLocaleLowerCase()}
