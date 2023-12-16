@@ -91,7 +91,7 @@ const App = () => {
   return (
     <div className='d-flex flex-column vh-100'>
       <header className='bg-body-secondary'>
-        <div className='container'>
+        <div className='container mb-2'>
           <Navbar userIn={userIn} logOut={logOut} userIdentify={userData.role.length > 0 ? userData.role : 'user'} />
         </div>
       </header>
