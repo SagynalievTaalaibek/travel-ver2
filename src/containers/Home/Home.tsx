@@ -1,11 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axiosApiTravel from '../../axiosApiTravel';
 import TravelItem from '../../components/TravelItem/TravelItem';
 import Categories from '../../components/Categories/Categories';
 import Skeleton from '../../components/Skeleton/Skeleton';
 import { TourApi, TourCard } from '../../types';
 
-const Home = () => {
+interface Props {
+  isAdmin: boolean;
+}
+
+const Home: React.FC<Props> = ({isAdmin}) => {
   const [travels, setTravels] = useState<TourCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [region, setRegion] = useState('');
@@ -53,12 +57,27 @@ const Home = () => {
 
   }, [fetchData, region]);
 
+  const deleteTour = async (id: string) => {
+    setLoading(true);
+    try {
+      const answer = confirm('Do yoy really want delete this tour?');
+      if (answer) {
+        await axiosApiTravel.delete('tours/' + id + '.json');
+        setTravels((prevState) => prevState.filter(value => value.id !== id));
+      }
+    } catch (e) {
+      alert('Delete id error' + e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const countTravel = () => {
     console.log('Press button');
   };
 
   const travelsList = travels.map((travel: TourCard) => {
-    return <TravelItem admin={true} {...travel} key={travel.id} onBook={countTravel} />;
+    return <TravelItem admin={isAdmin} {...travel} key={travel.id} onBook={countTravel} deleteTour={deleteTour} />;
   });
 
   return (

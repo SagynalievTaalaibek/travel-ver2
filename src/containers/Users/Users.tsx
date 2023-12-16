@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import axiosApiTravel from '../../axiosApiTravel';
-import { UserData, UserGet } from '../../types';
+import { UserDataInterface, UserGet } from '../../types';
 import { useNavigate } from 'react-router-dom';
 
 const Users = () => {
-  const [users, setUsers] = useState<UserData[]>([]);
+  const [users, setUsers] = useState<UserDataInterface[]>([]);
   const navigate = useNavigate();
   const fetchUsers = useCallback(async () => {
     try {

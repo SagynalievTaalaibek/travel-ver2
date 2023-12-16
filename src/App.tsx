@@ -8,12 +8,19 @@ import Users from './containers/Users/Users';
 import User from './containers/User/User';
 import NewTourForm from './containers/NewTourForm/NewTourForm';
 import { regionsEng } from './constant';
-import { UserData } from './types';
+import Books from './containers/Boolks/Books';
+import MyBooks from './containers/MyBooks/MyBooks';
+import Orders from './containers/Orders/Orders';
+import GuideOrder from './containers/GuideOrder/GuideOrder';
+import Personal from './containers/Personal/Personal';
+import { UserDataInterface } from './types';
 
 const App = () => {
   const navigate = useNavigate();
   const [userIn, setUserIn] = useState(false);
-  const [userData, setUserData] = useState<UserData>({
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGuide, setIsGuide] = useState(false);
+  const [userData, setUserData] = useState<UserDataInterface>({
     name: '',
     email: '',
     password: '',
@@ -28,6 +35,8 @@ const App = () => {
 
   const logOut = () => {
     setUserIn(false);
+    setIsAdmin(false);
+    setIsGuide(false);
     setUserData({
       name: '',
       email: '',
@@ -50,27 +59,37 @@ const App = () => {
     }
 
     if (savedValueUserIdentify) {
-      const userData = JSON.parse(savedValueUserIdentify);
-      setUserData(userData[0]);
+      const useData = JSON.parse(savedValueUserIdentify);
+      setUserData(useData[0]);
+
+      if (useData[0].role === 'admin') {
+        setIsAdmin(true);
+      }
+
+      if (useData[0].role === 'guide') {
+        setIsGuide(true);
+      }
     }
+
   }, [userIn]);
 
   let routes = null;
 
-  if (userData.role === 'admin') {
+
+  if (isAdmin) {
     routes = (
       <>
         <Route path={'/users'} element={<Users />} />
         <Route path={'/tours'} element={<NewTourForm />} />
         <Route path={'/tours/:id/edit'} element={<NewTourForm />} />
-        <Route path={'/orders'} element={<h1>Orders</h1>} />
+        <Route path={'/orders'} element={<Orders />} />
         <Route path={'/users/:id'} element={<User />} />
       </>
     );
   }
 
   return (
-    <div className="d-flex flex-column vh-100">
+    <div className='d-flex flex-column vh-100'>
       <header className='bg-body-secondary'>
         <div className='container'>
           <Navbar userIn={userIn} logOut={logOut} userIdentify={userData.role.length > 0 ? userData.role : 'user'} />
@@ -86,13 +105,19 @@ const App = () => {
               )} />
             </>
           )}
+          {isGuide ? (
+            <Route path={'/guide-orders'} element={<GuideOrder guideBooksId={userData.id} />} />
+          ) : null}
           {userIn && (
             <>
-              <Route path={'/home'} element={<Home />} />
+              <Route path={'/'} element={<Home isAdmin={isAdmin} />} />
+              <Route path={'/home'} element={<Home isAdmin={isAdmin} />} />
+              <Route path={'tours/:id/book'} element={<Books userId={userData.id} />} />
               {regionsEng.map((region) => (
-                <Route path={'/home/' + region} element={<Home />} key={region}/>
+                <Route path={'/home/' + region} element={<Home isAdmin={isAdmin} />} key={region} />
               ))}
-              <Route path={'/personal'} element={<h1>Personal</h1>} />
+              <Route path={'/my-books'} element={<MyBooks userBooksId={userData.id} />} />
+              <Route path={'/personal'} element={<Personal user={userData} />} />
             </>
           )}
           {routes}

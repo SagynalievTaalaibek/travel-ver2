@@ -13,14 +13,36 @@ const NewTourForm = () => {
     name: '',
     img: '',
     description: '',
-    region: 0,
+    region: '',
     date: '',
-    duration: 0,
-    price: 0,
-    maxPeople: 0,
-    amountPeople: 0,
+    duration: '',
+    price: '',
+    maxPeople: '',
+    amountPeople: '',
     guide: '',
   });
+
+  const fetchTour = useCallback(async (id: string) => {
+    setLoading(true);
+
+    try {
+      const response = await axiosApiTravel.get<TourCreateForm | null>(
+        'tours/' + id + '.json',
+      );
+
+      const tourData = response.data;
+
+      if (!tourData) {
+        return;
+      }
+
+      setTourData(tourData);
+    } catch (e) {
+      alert('Error' + e);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const fetchGuide = useCallback(async () => {
     try {
@@ -49,7 +71,11 @@ const NewTourForm = () => {
 
   useEffect(() => {
     void fetchGuide();
-  }, [fetchGuide]);
+
+    if (params.id) {
+      void fetchTour(params.id);
+    }
+  }, [fetchGuide, params, fetchTour]);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setTourData((prevState) => ({
@@ -70,23 +96,28 @@ const NewTourForm = () => {
     event.preventDefault();
     setLoading(true);
     try {
-      await axiosApiTravel.post('tours.json', tourData);
+      if (params.id) {
+        await axiosApiTravel.put('tours/' + params.id + '.json', tourData);
+      } else {
+        await axiosApiTravel.post('tours.json', tourData);
+        setTourData({
+          name: '',
+          img: '',
+          description: '',
+          region: '',
+          date: '',
+          duration: '',
+          price: '',
+          maxPeople: '',
+          amountPeople: '',
+          guide: '',
+        });
+      }
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      setTourData({
-        name: '',
-        img: '',
-        description: '',
-        region: 0,
-        date: '',
-        duration: 0,
-        price: 0,
-        maxPeople: 0,
-        amountPeople: 0,
-        guide: '',
-      });
+
     }
   };
 
