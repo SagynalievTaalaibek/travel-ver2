@@ -95,7 +95,7 @@ const App = () => {
           <Navbar userIn={userIn} logOut={logOut} userIdentify={userData.role.length > 0 ? userData.role : 'user'} />
         </div>
       </header>
-      <main className='container mt-3'>
+      <main className='container my-3'>
         <Routes>
           {!userIn && (
             <>

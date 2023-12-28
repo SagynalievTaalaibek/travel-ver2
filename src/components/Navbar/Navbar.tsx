@@ -34,7 +34,7 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
     ));
   } else if (userIdentify === 'admin') {
     navShow = adminNav.map((nav) => (
-      <li className='nav-item' key={nav}>
+      <li className='nav-item' key={nav} onClick={toggleMenu}>
         <NavLink
           to={'/' + nav.toLocaleLowerCase()}
           className={({ isActive, isPending }) =>
@@ -49,7 +49,7 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
     ));
   } else if (userIdentify === 'user') {
     navShow = userNav.map((nav) => (
-      <li className='nav-item' key={nav}>
+      <li className='nav-item' key={nav} onClick={toggleMenu}>
         <NavLink
           to={'/' + nav.toLocaleLowerCase()}
           className={({ isActive, isPending }) =>
@@ -64,7 +64,7 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
     ));
   } else if (userIdentify === 'guide') {
     navShow = guideNav.map((nav) => (
-      <li className='nav-item' key={nav}>
+      <li className='nav-item' key={nav} onClick={toggleMenu}>
         <NavLink
           to={'/' + nav.toLocaleLowerCase()}
           className={({ isActive, isPending }) =>
@@ -79,7 +79,7 @@ const Navbar: React.FC<Props> = ({ userIn, userIdentify, logOut }) => {
     ));
   } else {
     navShow = (
-      <li className='nav-item'>
+      <li className='nav-item' onClick={toggleMenu}>
         <NavLink
           to={'/home'}
           className='nav-link'

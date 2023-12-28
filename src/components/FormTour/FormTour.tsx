@@ -1,6 +1,7 @@
 import React from 'react';
 import { Guide, TourCreateForm } from '../../types';
 import { regionsEng } from '../../constant';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   title: string;
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const FormTour: React.FC<Props> = ({title, guides, tourData, onSubmit, onChange, handleSelectChange}) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <form className='col-md-6 card py-2' onSubmit={onSubmit}>
@@ -57,7 +60,7 @@ const FormTour: React.FC<Props> = ({title, guides, tourData, onSubmit, onChange,
         </div>
         <div className='mb-3 input-group'>
           <label htmlFor='region' className='input-group-text' style={{ width: '100px' }}>
-            Role
+            Region
           </label>
           <select
             name='region'
@@ -131,7 +134,7 @@ const FormTour: React.FC<Props> = ({title, guides, tourData, onSubmit, onChange,
         </div>
         <div className='mb-3 input-group'>
           <label htmlFor='guide' className='input-group-text' style={{ width: '100px' }}>
-            Role
+            Guide
           </label>
           <select
             name='guide'
@@ -147,7 +150,7 @@ const FormTour: React.FC<Props> = ({title, guides, tourData, onSubmit, onChange,
             ))}
           </select>
         </div>
-        <button className='btn btn-primary'>Save</button>
+        <button className='btn btn-primary' onClick={() => navigate('/')}>Save</button>
       </form>
     </>
   );
